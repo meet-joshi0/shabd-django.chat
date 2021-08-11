@@ -42,8 +42,6 @@
                     </div>
 
 
-
-
                 </div>
 
 
@@ -81,12 +79,6 @@
             const data = JSON.parse(e.data)
             var message = data['message']
             let cleaned_message = DOMPurify.sanitize( message , {USE_PROFILES: {html: false}} );
-
-
-
-             
-
-
 
 
             var struct = ('<div id="chat-log" style="background-color:#fff3b0" class="container m-2 shadow text-dark fw-bold rounded-4  border-dark overflow-auto">' +
@@ -132,7 +124,6 @@
                 }
         }
 
-   
 
     </script>
 
