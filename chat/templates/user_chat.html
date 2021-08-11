@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load event_tags %}
+
+{% block content_body %}
+
+
+<body class="mt-5 back " style="background-color:#FFC996" >
+
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-md-4">
+                {{ userNotifications }}
+                {% include 'notification.html' with ntfi=userNotifications %}
+
+
+
+            </div>
+
+            <div class="col-md-8 ">
+
+                
+                <div >
+                
+                    <!-- insert here     -->
+
+                    <div class="  overflow-scroll "  style="height: 40rem;" id="structure" > 
+                        <div class="container" id="frame">
+
+                        {% for msg in message%}
+                        <div id="chat-log" style="background-color:#EFE7D3"
+                            class="container m-2 shadow text-dark fw-bold rounded-4  border-dark overflow-auto">
+                            <p class="m-1 mt-2 " style="font-size:1.1rem;" > {{ msg.sender }} &nbsp;:&nbsp; {{ msg.message }}
+                                <hr class="border border-danger m-2">
+                                </hr>
+                        <span class=" float-end ">  <em> {{ msg.time|date:"D  M " }} {{ msg.time|time:"f" }}  </em></span> 
+                            </p>
+                        </div>
+                        {% endfor %}
+
+                    
+
+                    </div>
+                </div>
+
+                    
+
+
+
+
+                        {{ user_name | json_script:"user_name" }}
+
+                </div>
+
+                 <div class=" mb-4 container  mt-2 input-group ">
+                    <input id="chat-message-input" class="form-control rounded-pill  " type="text" placeholder="message">
+                    <i type="button" id="chat-message-submit" value="send"  class="far fa-paper-plane fs-2  "></i>  
+                </div> 
+
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+    <script>
+        const roomName = JSON.parse(document.getElementById("user_name").textContent);
+        const username = "{{ user.get_username }}"
+        messageCounter = 0
+
+        var url = short_name_path(username,roomName)
+
+
+
+
+
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/userchat/' + url + '/'
+        );
+
+
+
+        const chatSocket2 = new WebSocket(
+            'ws://' + window.location.host + '/ws/notification/' + roomName + '/'
+
+        );
+
+        chatSocket2.onopen = function (e) {
+            $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
+        };
+
+
+
+
+
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data)
+            var message = data.message
+            let cleaned_message = DOMPurify.sanitize( message , {USE_PROFILES: {html: false}} );
+
+
+
+            var struct = ('<div id="chat-log" style="background-color: #EFE7D3" class="container m-2 shadow text-dark fw-bold rounded-4  border-dark overflow-auto">'
+                + '<p  class="m-1 mt-2" style="font-size:1.1rem;" >' + cleaned_message
+                + '  <hr class="border border-danger m-2">'
+                + '</hr>'
+                + '<span class="float-end p-1"><em>'+current_date_time()+'</em></span>'
+                + '</p>'
+                + '</div>')
+
+    
+            
+            
+           $("#frame").append(struct)
+           $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
+
+        };
+
+        chatSocket.onclose = function (e) {
+            console.log("chat socket closed unexpectedly");
+        };
+
+        document.querySelector("#chat-message-input").focus();
+        document.querySelector("#chat-message-input").onkeyup = function (e) {
+            if (e.keyCode === 13) {
+                document.querySelector("#chat-message-submit").click();
+            }
+        }
+
+        document.querySelector("#chat-message-submit").onclick = function (e) {
+
+                chatSocket2.send(JSON.stringify({
+                    'message': { 'username': username, 'reciver': roomName }
+
+                }))
+
+
+
+            const messageInputDom = document.querySelector("#chat-message-input");
+            const message = messageInputDom.value;
+
+            if(message.trim()){
+
+
+            let cleaned_message = DOMPurify.sanitize( message , {USE_PROFILES: {html: false}} );
+
+            chatSocket.send(JSON.stringify({
+                'message': cleaned_message
+            }))
+            messageInputDom.value = "";
+
+           $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
+
+        }}
+
+    </script>
+
+
+</body>
+{% endblock content_body %}

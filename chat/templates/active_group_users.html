@@ -1,0 +1,153 @@
+{% load static %}
+{% load thumbnail %}
+
+<html>
+
+<head>
+
+<script type="text/javascript" src=" {% static "javascript/main.js" %} " ></script>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div id="notify" class="shadow-sm ">
+      <a href="#" class="list-group-item list-group-item-action rounded-pill active mb-2  text-center " aria-current="true">
+        Active Users 
+      </a>
+    </div>
+  </div>
+
+ 
+  <script>
+ 
+    const name = "{{ user.get_username  }}";
+    const notificationList = [];
+    var ping = "";
+    var csrf = "{{ csrf_token }}"
+    var recipient = "";
+    var roomName = "{{ room_nm }}"
+
+
+
+    const Active_User_Socket = new WebSocket(
+      'ws://' + window.location.host + '/ws/activeusers/' + roomName + '/'
+    );
+
+
+
+    const active_new_user = new WebSocket(
+      "ws://" + window.location.host + "/ws/activeusernew/" + name + "/"
+    );
+
+
+
+    active_new_user.onmessage = function (e) {
+
+      var exp = JSON.parse(e.data)
+
+      for (var key in exp) {
+        for (const inner in exp[key]) {
+
+          var data_connect = exp[key][inner]['connect']
+
+          if(data_connect['username'] != "{{ user.get_username }}"){
+
+            var path = url_path_userroom(data_connect['username'], "{{ user.get_username }}")
+            var usename =  data_connect['username']
+            var userimage = data_connect['userimage']
+
+            var msgnotify = user_notification(usename,userimage,path)
+          
+
+
+
+        $("#notify").append(msgnotify);
+
+        }
+
+      
+
+
+      }
+    }
+            }
+
+
+
+
+
+    Active_User_Socket.onmessage = function (e) {
+      var data = JSON.parse(e.data)
+      var userimage = "";
+
+
+
+      var data_connect = data.connect
+      var data_disconnect = data.disconnect
+
+
+        if( data_connect && data_connect['username'] != "{{ user.get_username }}"){
+
+         path = url_path_userroom(data_connect['username'], "{{ user.get_username }}")
+         var usename =  data_connect['username']
+         var userimage = data_connect['userimage']
+
+          var msgnotify = user_notification(usename,userimage,path)
+
+          
+
+      $("#notify").append(msgnotify);
+        }else if(data_disconnect){
+
+          var  nm =  "#" +data_disconnect['username']
+          var a = $(nm).remove(); 
+
+
+        }
+          
+    }
+
+    Active_User_Socket.onclose = function (e) {
+      console.log("chat socket closed unexpectedly",  );
+    };
+
+    function user_notification(username,userimage,url){
+      userimage ="{{ MEDIA_URL }}"+userimage+".300x300_q75.jpg"
+
+
+     var notification_design =  '<div class="card mb-3 shadow rounded-bottom " id = '+ username +'  style=" height:3rem;   background-color:#edddd4; ">' +
+            '<div class="row g-0">' +
+            '<div class="col ">' +
+            '<img src=" ' + userimage+ ' " style="height:2.8rem;width:6rem; object-fit: cover; "  class="img-fluid " >' +
+            '</div>' +
+            '<div class="col"  >' +
+            '<div class="card-body text-truncate p-1 "   >' +
+            '<a href="'+ url +' " class="  fs-4 text-decoration-none text-dark "><b>'+
+            username   +
+            '</b></a> '+
+          '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+
+    return notification_design
+
+    }
+
+    window.onbeforeunload = function (e) {
+      return Active_User_Socket.close()
+      }; 
+
+ if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD) {
+Active_User_Socket.close()
+}
+
+    
+
+
+
+  </script>
+</body>
+
+</html>

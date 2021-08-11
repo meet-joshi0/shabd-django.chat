@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content_body %}
+
+
+<head>
+<style>
+
+@media (min-width: 768px) {
+  
+
+
+
+
+       
+}
+
+</style>
+</head>
+
+<body style="background-color: #c8f0e0" >
+
+
+
+   
+   <form method = "post" style="background-color: #bceec2" class="container shadow  p-5 my-5" enctype="multipart/form-data" >
+       {% csrf_token %}
+
+       {{ form.non_field_errors }}
+       {{form.subject.non_field_errors}}
+
+       
+
+       {% if form.instance.userImage.url  %}
+       <div class="text-center ">
+            <p><img src="{{ form.instance.userImage.url }} " class=" border border-2  border-dark rounded-pill " id="output" width="200" /></p>
+       </div>
+       {% else %}
+          <p><label for="id_userImage" class="form-control my-3 border border-1 border-dark" style="cursor: pointer;">Upload Image</label></p>
+       {% endif %}
+
+       <p><input type="file"  name="userImage"  accept="image/*"   name="image" id="id_userImage"  onchange="loadFile(event)" style="display: none;"></p>
+
+
+
+
+       <label class=" fw-bolder mt-3" for="{{ form.username.username }}"> username</label>
+       {{ form.username }}
+
+
+       <label class=" fw-bolder " for="{{ form.name.name }}"> name</label>
+       <p>  {{ form.name }} </p>
+
+       <label class=" fw-bolder " for="{{ form.password.password }}"> password</label>
+        {{ form.password }}
+
+       
+       <label class=" fw-bolder " for="{{ form.email.email }}"> email</label>
+       <p> {{ form.email }} </p>
+
+ 
+       <label class=" fw-bolder " for="{{ form.email.dob }}"> Birthday</label>
+       <p> {{ form.DoB }} </p>
+
+
+       
+       <button type="submit " class="btn btn-primary btn-lg w-100 my-3 ">Submit</button>
+     </form>
+
+
+<script>
+
+
+  var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
+
+$("#output").click(function() {
+    $("input[id='id_userImage']").click();
+});
+
+
+
+</script>
+
+</body>
+
+{% endblock content_body %}

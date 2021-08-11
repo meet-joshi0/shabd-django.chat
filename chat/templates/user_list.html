@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load event_tags %}
+{% block content_body %}
+
+<body style="background-color: #b0f7da;">
+
+  <form class="d-flex" method="get">
+    {% csrf_token %}
+
+    <div class="input-group container ">
+      <input class="form-control  border-end-0  bg-light rounded-pill " type="text" id="example-search-input"
+        name="search" placeholder="Search" aria-label="Search" />
+      <span class="input-group-append">
+        <button class="btn  bg-white border-start-0 border rounded-pill ms-n3" type="submit">
+          <i class="fa fa-search fs-4  "></i>
+
+        </button>
+      </span>
+    </div>
+
+
+
+
+
+  </form>
+
+  <br />
+
+  <div class="container mt-4 gx-5">
+  <div class="row">
+
+    {% autoescape off %}
+    {% for item in object_list|getprofile:user.get_username %}
+
+    <div class="col-md-4  ">
+
+
+      <div class='card text-center m-2' style='width:auto;'>
+        <img src="{{ item.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'>
+        
+
+        <div class='card-body ' style="background-color:#adc178">
+          <a class=' btn rounded-pill border-white border-5 bg-warning fw-bloder card-text text-dark text-decoration-none ' style='font-size: 23px;  '
+            href="{{ item.url }}"> <b>{{ item.username|truncatechars:19 }}</b> </a>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+    {% endfor %}
+    {% endautoescape %}
+
+  </div>
+  </div>
+
+  <nav id="pg" class="mt-5 mb-5">
+    <ul class="pagination pagination-lg justify-content-center ">
+
+      {% if page_obj.has_previous %}
+      <li class="page-item ">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"
+          aria-disabled="true">Previous</a>
+      </li>
+      {% endif %}
+
+
+
+      {% for item in page_obj.paginator.page_range %}
+      <li id={{ item }} class="page-item ">
+        <a class="page-link " href="?page={{ item }} ">{{ item }} </a>
+      </li>
+      {% endfor %}
+
+
+      {% if page_obj.has_next %}
+      <li class="page-item ">
+        <a class="page-link" href="?page={{ page_obj.next_page_number  }}" tabindex="-1" aria-disabled="true">next</a>
+      </li>
+
+      {% endif %}
+
+      </span>
+      </div>
+
+
+      <script>
+
+        function addsActive() {
+          var item = "{{ page_obj.number }}"
+          var element = document.getElementById(item)
+          element.classList.add("active")
+
+        }
+
+        addsActive()
+
+
+      </script>
+
+</body>
+{% endblock content_body %}

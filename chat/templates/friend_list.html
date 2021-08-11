@@ -1,0 +1,44 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load event_tags %}
+{% load widget_tweaks %}
+{% load thumbnail  %}
+{% block content_body %}
+
+{% comment %} c8f0e0 {% endcomment %}
+
+<body style="background-color:#b0f7da">
+
+<div class="container mt-4 gx-5">
+	<div  class="row">
+
+  {% if object_list %}
+
+  {% for item in object_list|getprofile:user.get_username  %} 
+
+  <div class="col-md-4">
+
+  <div class='card text-center  '  style='width:auto;' > 
+                  <img src="{{ item.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'>
+
+                      <div class='card-body' style="background-color:#29BB89"   > 
+                      <a class = 'btn border-white border-4 rounded-pill fw-bloder card-text text-dark fw-bolder text-decoration-none a' style='font-size: 23px; background-color:#91C788  ' href={{ item.url }} > {{ item.username  }}</a>   
+                      </div> 
+             </div> 
+    </div>
+
+    {% endfor %}
+    
+     {% else %} 
+  
+  {% include 'shabd_404.html' %}
+
+  {% endif %}
+
+	</div>
+
+
+</div>
+
+</body>
+{% endblock content_body %}

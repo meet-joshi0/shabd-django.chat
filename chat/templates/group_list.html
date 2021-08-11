@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load thumbnail %}
+{% block content_body %}
+
+<body style="background-color: #b0f7da;">
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+
+        <button class=" btn btn-warning m-3 rounded-pill text-dark " type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"> Create new Group</button>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="offcanvas offcanvas-end  w-75" style="background-color:#e8c1d3" tabindex="-1" id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h4 class="m-5 fs-3  " id="offcanvasRightLabel">Create Group</h3>
+        <button type="button" class="btn-close  text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+
+    <div class="offcanvas-body">
+
+      <form method="post" class="container shadow  w-100 p-2 m-2" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.error }}
+
+        {{ form.non_field_errors }}
+        {{form.subject.non_field_errors}}
+
+
+
+        <label class=" fw-bolder fs-4 mb-3 mt-5"> Group name </label>
+        <small id="groupnameHelp" class="form-text text-dark"> ( minimum three character, only letters, numbers and
+          underscore is allowed )</small>
+
+        <p> {{ form.groupname }} </p>
+
+        <label class=" fw-bolder fs-4  form-label text-dark my-3 " for="{{ image }}"> image </label>
+        <p> {{ form.groupImage }} </p>
+
+        <label class=" fw-bolder form-check ml-0 fs-4 mb-3 mt-5"> Group description :</label>
+        <p> {{ form.description }} </p>
+
+
+
+        <button type="submit " class="btn btn-primary btn-lgmt-3 fs-3 w-100 my-3 ">Submit</button>
+
+
+      </form>
+
+
+
+    </div>
+  </div>
+
+
+
+  <form class="d-flex" method="get">
+    {% csrf_token %}
+
+
+
+
+
+    <div class="input-group container ">
+
+      <input class="form-control  border-end-0  bg-light rounded-pill " type="text" id="example-search-input"
+        name="search" placeholder="Search" aria-label="Search" />
+
+      <span class="input-group-append">
+
+        <button class="btn  bg-white border-start-0 border rounded-pill ms-n3" type="submit">
+
+          <i class="fa fa-search fs-4  "></i>
+
+        </button>
+      </span>
+    </div>
+
+
+
+  </form>
+
+  <br />
+
+
+
+  <div class="container gx-5  mt-4 ">
+    <div class="row gx-5 ">
+  
+
+      {% for item in group_list %}
+
+
+
+
+      <div class=" col-md-4  ">
+        <div class='card text-center   mb-4 ' style='width:auto'>
+          <img src="{{  item.groupImage|thumbnail_url:'avatar'  }} " style='height:14rem' class='card-img-top'>
+
+          <div class='card-body ' style='background-color: #468faf '>
+
+            <a class='fw-bloder badge  card-text text-dark text-decoration-none'
+              style='font-size: 23px;background-color:#ffe8d6  ' href=/room/{{item.groupname }}> 
+              {{item.groupname|truncatechars:20 }} </a>
+
+
+            </br>
+            <button class="btn  m-1 w-bloder fs-4 card-text text-dark text-decoration-none"
+              style="background-color:#68d8d6" type="button" data-bs-toggle="collapse"
+              data-bs-target="#{{ item.groupname }}" aria-expanded="false" aria-controls="collapseExample">
+              <b> Description </b>
+            </button>
+            <div class="collapse" id="{{ item.groupname }}">
+              <div class=" text-white fs-4 m-2">
+                {% if item.description %}
+                <b> {{ item.description}} </b>
+                {% else %}
+                <b> no description has provided </b>
+                {% endif %}
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+  </div>
+
+
+
+
+
+      {% endfor %}
+
+    </div>
+
+
+
+
+
+    <nav id="pg" class="mt-5 mb-5">
+      <ul class="pagination pagination-lg justify-content-center ">
+
+        {% if has_previous %}
+
+        <li class="page-item ">
+          <a class="page-link" href="?num={{ previous_page_num }}" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+
+        {% endif %}
+
+
+
+        {% for item in page_range %}
+        <li id={{ item }} class="page-item ">
+          <a class="page-link " href="?num={{ item }} ">{{ item }} </a>
+        </li>
+        {% endfor %}
+
+
+
+        {% if has_next %}
+
+        <li class="page-item ">
+          <a class="page-link" href="?num={{ next_page_num }}" tabindex="-1" aria-disabled="true">next</a>
+        </li>
+
+        {% endif %}
+
+
+      </ul>
+    </nav>
+
+
+
+
+
+    <script>
+
+
+      function addsActive() {
+        var item = "{{ current_page }}"
+        var element = document.getElementById(item)
+        element.classList.add("active")
+
+      }
+
+      addsActive()
+
+
+    </script>
+
+</body>
+{% endblock content_body %}

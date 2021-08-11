@@ -1,0 +1,40 @@
+ {% extends 'base.html' %}
+ {% load static %}
+ {% block content_body %}
+{% load widget_tweaks %}
+
+<body style="background-color: #c8f0e0" >
+    
+    <form method = "post" style="background-color: #bceec2; " class="container   shadow  p-5 my-5" enctype="multipart/form-data" >
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+        {{form.subject.non_field_errors}}
+
+    
+ <label class="fw-bolder mt-5 my-2 " for="{{ form.username.username }}">
+      username:</label>
+    <p class="w-100 " > {{ form.username|add_class:"form-control text-lowercase my-3 border border-1 border-dark w-100"|attr:"data-toggle:tooltip"|attr:"data-placement:bottom"|attr:"title:please enter username"   }}  </p>
+
+    <br> 
+
+
+ 
+
+
+    <label class="fw-bolder my-2 " for="{{ form.password.password }}">
+      password: </label
+    >
+    <p> {{ form.password|add_class:'form-control  my-3 border border-1 border-dark w-100'|attr:"data-toggle:tooltip"|attr:"data-placement:bottom"|attr:"title:please enter password"   }} </p>
+
+
+          
+        
+        <button type="submit " class="btn btn-primary btn-lg w-100 my-3 ">Submit</button>
+      </form>
+
+
+</body>
+
+{% endblock content_body %}
+

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content_body %}
+
+
+
+<body class="mt-5 " style="overflow:auto; background-color:#e9f5db "  >
+
+
+    <div class="container-fluid ">
+
+
+
+        <div class="row ">
+
+            <div class="col-sm-3 mx-auto   h-50" >
+
+                {{ room_name | json_script:"room_name" }}
+
+
+                {% include 'active_group_users.html' with room_nm=room_name %}
+
+            </div>
+            <div class="col-sm-9 mx-auto  h-50" style=" overflow: hidden;" >
+                <div class=" overflow-scroll " id="structure" style="height: 40rem;">
+
+                    <div id="frame"  >
+                        <!-- insert here-->
+
+            {% for a in group_messages %}
+
+                <div id="chat-log" style="background-color: #fff3b0" class="container m-2 shadow text-dark fw-bold rounded-4  border-dark overflow-auto"> 
+                <p class="m-1  " style="font-size:1.1rem;" > {{ a.sender }} &nbsp;:&nbsp;  {{ a.message }} </p> 
+                <span class=" float-end ">  <em> {{ a.time|date:"D  M " }} {{ a.time|time:"f" }}  </em></span> 
+                <hr class="border border-danger m-0 ">  
+                </hr> 
+                </div>
+
+
+            {% endfor %}
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                  <div class=" mb-4 container  mt-3 input-group ">
+                    <input id="chat-message-input" class="form-control rounded-pill  " type="text" placeholder="message">
+                    <i type="button" id="chat-message-submit" value="send"  class="far fa-paper-plane fs-2  "></i>  
+                </div> 
+
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+    <script>
+
+        var roomName = JSON.parse(document.getElementById("room_name").textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
+        );
+
+        chatSocket.onopen = function(e){
+        $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
+
+        }
+
+
+        chatSocket.onmessage = function (e) {
+          
+
+            const data = JSON.parse(e.data)
+            var message = data['message']
+            let cleaned_message = DOMPurify.sanitize( message , {USE_PROFILES: {html: false}} );
+
+
+
+             
+
+
+
+
+            var struct = ('<div id="chat-log" style="background-color:#fff3b0" class="container m-2 shadow text-dark fw-bold rounded-4  border-dark overflow-auto">' +
+                '<p class="m-1 mt-2" style="font-size:1.1rem;" >' + cleaned_message +
+                '</p>' +
+                '<span class="float-end "> <em>'+ current_date_time() +'</em></span>' +
+                ' <hr class="border border-danger m-0"> ' +
+                '</hr>' +
+                '</div>')
+
+
+            $("#frame").append(struct)
+
+        };
+
+        chatSocket.onclose = function (e) {
+           console.log("sorry, something went wrong")
+        };
+
+        document.querySelector("#chat-message-input").focus();
+        document.querySelector("#chat-message-input").onkeyup = function (e) {
+            if (e.keyCode === 13) {
+                document.querySelector("#chat-message-submit").click();
+            }
+        }
+
+        document.querySelector("#chat-message-submit").onclick = function (e) {
+            const messageInputDom = document.querySelector("#chat-message-input");
+            const message = messageInputDom.value;
+
+                if(message.trim()){
+
+            let cleaned_message = DOMPurify.sanitize( message , {USE_PROFILES: {html: false}} );
+
+            chatSocket.send(JSON.stringify({
+                'message': cleaned_message
+            }))
+
+            $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight }, 1000);
+                
+
+            messageInputDom.value = "";
+                }
+        }
+
+   
+
+    </script>
+
+
+</body>
+{% endblock content_body %}

@@ -1,0 +1,192 @@
+{% load static %}
+<html>
+
+<head>
+
+<script type="text/javascript" src=" {% static "javascript/main.js" %} " ></script>
+</head>
+
+  <body>
+
+<div class="container" >
+  <button 
+        class="list-group-item list-group-item-action mb-3 text-dark fw-bolder text-center  rounded-pill active"
+        aria-current="true"  id="add" style="background-color:#99B0B0"
+      >
+      Friend 
+      </button>
+    <div id="notify" class="list-group d-md-flex  align-items-start shadow-sm">
+      <a
+        href="#"
+        class="list-group-item text-center list-group-item-action rounded-pill active"
+        aria-current="true"
+      >
+        new messages 
+      </a>
+    </div>
+    </div>
+
+
+    <script>
+      const name = "{{ user.get_username  }}";
+      const notificationList = [];
+      var ping = "";
+      var csrf = "{{ csrf_token }}"
+      var recipient = "";
+ 
+
+
+      const chatSocketNotify = new WebSocket(
+        "ws://" + window.location.host + "/ws/notification/" + name + "/"
+      );
+
+
+      function sendNotification(notifications){
+
+        var path = ""
+        ping = notifications
+      
+
+
+      if( ping != "" && !notificationList.includes( ping ) ){
+      notificationList.push( ping );
+
+        path = url_path_userroom(ping,name)
+        
+
+      var msgnotify =
+      ' <a href='+path+' class="list-group-item list-group-item-danger list-group-item-action text-center my-2 rounded-pill">' +
+           ping +
+      "</a>";        
+  
+ $("#notify").append(msgnotify);
+
+    }
+
+}
+
+
+      chatSocketNotify.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        ping = data["message"];  
+
+              
+        
+        if (Array.isArray(ping)  )
+         {
+                   
+            ping.map(a=>{
+            ping = a
+           sendNotification(ping)
+
+           })
+
+         }else{
+           if(ping !=  recipient){ 
+           sendNotification(ping)
+           }
+         }
+        }
+
+        // ------------------------
+
+    $('#add').click(function(){
+
+          const url =  window.location.href
+          var button_Text = $(this).text()
+
+
+  
+    if ( button_Text == "Friend" ){
+          
+
+
+    $.ajax(
+    {
+        type:"POST",
+        url: "{% url 'addfriend' %}",
+        headers: {'X-CSRFToken':   csrf  },
+        data:{
+                 add_friend_name: recipient
+                },
+                success: function( data ) 
+                {
+                  
+
+        friend_unfriend_button(data)
+
+        
+         }
+
+     })
+
+    } else {
+      
+      
+      $.ajax(
+    {
+        type:"POST",
+        url: "{% url 'addfriend' %}",
+        headers: {'X-CSRFToken':   csrf  },
+        data:{
+                 remove_friend_name: recipient
+        },
+        success: function( data ) 
+        {
+        
+        friend_unfriend_button(data)
+
+       }
+
+     })
+    }
+
+
+});
+
+
+$( document ).ready(function() {
+
+
+const url =  window.location.href
+
+          var splitUrl = url.split('userroom/') 
+
+          var final = splitUrl.reverse()[0].split("/")
+
+          if(name == final[0]){
+          recipient = final[1]
+          }else{
+            recipient = final[0]
+          }
+          console.log(" split url ",recipient)
+
+
+ $.ajax(
+    {
+        type:"GET",
+        url: "{% url 'addfriend' %}",
+
+        headers: {'X-CSRFToken':   csrf  },
+        data:{
+                 friend_name: recipient
+        },
+        success: function( data ) 
+        {
+
+
+        friend_unfriend_button(data)
+
+
+        
+        }
+     })
+});
+
+
+
+       
+
+    </script>
+  </body>
+</html>
