@@ -6,30 +6,16 @@
 <head>
 <style>
 
-@media (min-width: 768px) {
-  
-
-
-
-
-       
-}
-
 </style>
 </head>
 
 <body style="background-color: #c8f0e0" >
 
-
-
-   
    <form method = "post" style="background-color: #bceec2" class="container shadow  p-5 my-5" enctype="multipart/form-data" >
        {% csrf_token %}
 
        {{ form.non_field_errors }}
        {{form.subject.non_field_errors}}
-
-       
 
        {% if form.instance.userImage.url  %}
        <div class="text-center ">
@@ -40,8 +26,6 @@
        {% endif %}
 
        <p><input type="file"  name="userImage"  accept="image/*"   name="image" id="id_userImage"  onchange="loadFile(event)" style="display: none;"></p>
-
-
 
 
        <label class=" fw-bolder mt-3" for="{{ form.username.username }}"> username</label>
@@ -62,7 +46,6 @@
        <label class=" fw-bolder " for="{{ form.email.dob }}"> Birthday</label>
        <p> {{ form.DoB }} </p>
 
-
        
        <button type="submit " class="btn btn-primary btn-lg w-100 my-3 ">Submit</button>
      </form>
@@ -79,7 +62,6 @@
 $("#output").click(function() {
     $("input[id='id_userImage']").click();
 });
-
 
 
 </script>
