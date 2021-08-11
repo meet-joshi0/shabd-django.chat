@@ -9,15 +9,11 @@
 
     <div class="container-fluid ">
 
-
-
         <div class="row ">
 
             <div class="col-sm-3 mx-auto   h-50" >
 
                 {{ room_name | json_script:"room_name" }}
-
-
                 {% include 'active_group_users.html' with room_nm=room_name %}
 
             </div>
@@ -36,15 +32,10 @@
                 </hr> 
                 </div>
 
-
             {% endfor %}
 
                     </div>
-
-
                 </div>
-
-
 
                   <div class=" mb-4 container  mt-3 input-group ">
                     <input id="chat-message-input" class="form-control rounded-pill  " type="text" placeholder="message">
@@ -72,10 +63,8 @@
 
         }
 
-
         chatSocket.onmessage = function (e) {
           
-
             const data = JSON.parse(e.data)
             var message = data['message']
             let cleaned_message = DOMPurify.sanitize( message , {USE_PROFILES: {html: false}} );
@@ -88,7 +77,6 @@
                 ' <hr class="border border-danger m-0"> ' +
                 '</hr>' +
                 '</div>')
-
 
             $("#frame").append(struct)
 
