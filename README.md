@@ -12,3 +12,7 @@ simple chatting site built with django and channels.
 [1] improve login and registration page <br/>
 [2] improve accuracy of notification system <br/>
 
+### note:<b>
+add your own secret key and database configurations<b>
+
+
