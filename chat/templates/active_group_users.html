@@ -29,17 +29,13 @@
     var roomName = "{{ room_nm }}"
 
 
-
     const Active_User_Socket = new WebSocket(
       'ws://' + window.location.host + '/ws/activeusers/' + roomName + '/'
     );
 
-
-
     const active_new_user = new WebSocket(
       "ws://" + window.location.host + "/ws/activeusernew/" + name + "/"
     );
-
 
 
     active_new_user.onmessage = function (e) {
@@ -59,33 +55,19 @@
 
             var msgnotify = user_notification(usename,userimage,path)
           
-
-
-
         $("#notify").append(msgnotify);
 
         }
-
-      
-
-
       }
     }
-            }
-
-
-
-
+  }
 
     Active_User_Socket.onmessage = function (e) {
       var data = JSON.parse(e.data)
       var userimage = "";
 
-
-
       var data_connect = data.connect
       var data_disconnect = data.disconnect
-
 
         if( data_connect && data_connect['username'] != "{{ user.get_username }}"){
 
@@ -95,18 +77,13 @@
 
           var msgnotify = user_notification(usename,userimage,path)
 
-          
-
       $("#notify").append(msgnotify);
         }else if(data_disconnect){
 
           var  nm =  "#" +data_disconnect['username']
           var a = $(nm).remove(); 
-
-
         }
-          
-    }
+          }
 
     Active_User_Socket.onclose = function (e) {
       console.log("chat socket closed unexpectedly",  );
@@ -142,10 +119,6 @@
  if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD) {
 Active_User_Socket.close()
 }
-
-    
-
-
 
   </script>
 </body>

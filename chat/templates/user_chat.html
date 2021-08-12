@@ -13,17 +13,11 @@
                 {{ userNotifications }}
                 {% include 'notification.html' with ntfi=userNotifications %}
 
-
-
             </div>
 
-            <div class="col-md-8 ">
-
-                
+            <div class="col-md-8 "> 
                 <div >
                 
-                    <!-- insert here     -->
-
                     <div class="  overflow-scroll "  style="height: 40rem;" id="structure" > 
                         <div class="container" id="frame">
 
@@ -38,15 +32,8 @@
                         </div>
                         {% endfor %}
 
-                    
-
                     </div>
                 </div>
-
-                    
-
-
-
 
                         {{ user_name | json_script:"user_name" }}
 
@@ -57,13 +44,11 @@
                     <i type="button" id="chat-message-submit" value="send"  class="far fa-paper-plane fs-2  "></i>  
                 </div> 
 
-
             </div>
         </div>
 
     </div>
     </div>
-
 
     <script>
         const roomName = JSON.parse(document.getElementById("user_name").textContent);
@@ -72,14 +57,9 @@
 
         var url = short_name_path(username,roomName)
 
-
-
-
-
         const chatSocket = new WebSocket(
             'ws://' + window.location.host + '/ws/userchat/' + url + '/'
         );
-
 
 
         const chatSocket2 = new WebSocket(
@@ -92,15 +72,10 @@
         };
 
 
-
-
-
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data)
             var message = data.message
             let cleaned_message = DOMPurify.sanitize( message , {USE_PROFILES: {html: false}} );
-
-
 
             var struct = ('<div id="chat-log" style="background-color: #EFE7D3" class="container m-2 shadow text-dark fw-bold rounded-4  border-dark overflow-auto">'
                 + '<p  class="m-1 mt-2" style="font-size:1.1rem;" >' + cleaned_message
@@ -110,9 +85,6 @@
                 + '</p>'
                 + '</div>')
 
-    
-            
-            
            $("#frame").append(struct)
            $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
 
@@ -133,10 +105,7 @@
 
                 chatSocket2.send(JSON.stringify({
                     'message': { 'username': username, 'reciver': roomName }
-
                 }))
-
-
 
             const messageInputDom = document.querySelector("#chat-message-input");
             const message = messageInputDom.value;
@@ -156,7 +125,6 @@
         }}
 
     </script>
-
 
 </body>
 {% endblock content_body %}

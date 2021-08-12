@@ -6,7 +6,6 @@
 
 <body style="background-color: #b0f7da;">
 
-
   <div class="container">
     <div class="row">
       <div class="col text-center">
@@ -17,8 +16,6 @@
       </div>
     </div>
   </div>
-
-
 
   <div class="offcanvas offcanvas-end  w-75" style="background-color:#e8c1d3" tabindex="-1" id="offcanvasRight"
     aria-labelledby="offcanvasRightLabel">
@@ -38,8 +35,6 @@
         {{ form.non_field_errors }}
         {{form.subject.non_field_errors}}
 
-
-
         <label class=" fw-bolder fs-4 mb-3 mt-5"> Group name </label>
         <small id="groupnameHelp" class="form-text text-dark"> ( minimum three character, only letters, numbers and
           underscore is allowed )</small>
@@ -52,26 +47,15 @@
         <label class=" fw-bolder form-check ml-0 fs-4 mb-3 mt-5"> Group description :</label>
         <p> {{ form.description }} </p>
 
-
-
         <button type="submit " class="btn btn-primary btn-lgmt-3 fs-3 w-100 my-3 ">Submit</button>
 
-
       </form>
-
-
 
     </div>
   </div>
 
-
-
   <form class="d-flex" method="get">
     {% csrf_token %}
-
-
-
-
 
     <div class="input-group container ">
 
@@ -88,17 +72,21 @@
       </span>
     </div>
 
-
-
   </form>
 
   <br />
 
 
 
+
   <div class="container gx-5  mt-4 ">
     <div class="row gx-5 ">
   
+     {% if not user.get_username %}
+        <div class="alert alert-danger text-center" role="alert">
+      Please login to chat with users
+      </div>
+        {% endif %}
 
       {% for item in group_list %}
 

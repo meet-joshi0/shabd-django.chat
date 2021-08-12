@@ -12,10 +12,10 @@ urlpatterns = [
     path('friendlist',friendList.as_view(),name="friendlist"),
     path('login',LoginView.as_view(),name="loginuser"),
     path('logout',auth_views.LogoutView.as_view(), name="logout"),
-    path('room/<str:room_name>/',groupChat.as_view(),name="room"),
+    path('room/<str:room_name>',groupChat.as_view(),name="room"),
     path('actusers/',Active_group_users.as_view(),name="activeusers"),
-    path('userroom/<str:user_name1>/<str:user_name2>/',userchat.as_view(),name="user"),
-    path('notification/<str:username>/',ChatNotification.as_view(),name="notification"),
+    path('userroom/<str:user_name1>/<str:user_name2>',userchat.as_view(),name="user"),
+    path('notification/<str:username>',ChatNotification.as_view(),name="notification"),
     path('addfriend',AddFriend,name="addfriend")
 ]
 

@@ -21,9 +21,6 @@
     </div>
 
 
-
-
-
   </form>
 
   <br />
@@ -31,26 +28,36 @@
   <div class="container mt-4 gx-5">
   <div class="row">
 
+        {% if not user.get_username %}
+        <div class="alert alert-danger text-center" role="alert">
+      Please login to chat with users
+      </div>
+        {% endif %}
+
     {% autoescape off %}
-    {% for item in object_list|getprofile:user.get_username %}
+    {% for users in object_list|getprofile:user.get_username %}
 
     <div class="col-md-4  ">
 
-
       <div class='card text-center m-2' style='width:auto;'>
-        <img src="{{ item.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'>
+        <img src="{{ users.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'>
         
-
         <div class='card-body ' style="background-color:#adc178">
-          <a class=' btn rounded-pill border-white border-5 bg-warning fw-bloder card-text text-dark text-decoration-none ' style='font-size: 23px;  '
-            href="{{ item.url }}"> <b>{{ item.username|truncatechars:19 }}</b> </a>
+
+        {% if  user.get_username %}
+        
+        <a class=' btn rounded-pill border-white border-5 bg-warning fw-bloder card-text text-dark text-decoration-none ' style='font-size: 23px;  '
+          href="{{ users.url }}"> <b>{{ users.username|truncatechars:19 }}</b> </a>
+  
+        {% else %}
+            <a class=' btn rounded-pill border-white border-5 bg-warning fw-bloder card-text text-dark text-decoration-none ' style='font-size: 23px;  '
+            href="{% url 'login' %}"> <b>{{ users.username|truncatechars:19 }}</b> </a>
+        {% endif%} 
+
         </div>
       </div>
 
-
-
     </div>
-
 
     {% endfor %}
     {% endautoescape %}
@@ -68,14 +75,11 @@
       </li>
       {% endif %}
 
-
-
       {% for item in page_obj.paginator.page_range %}
       <li id={{ item }} class="page-item ">
         <a class="page-link " href="?page={{ item }} ">{{ item }} </a>
       </li>
       {% endfor %}
-
 
       {% if page_obj.has_next %}
       <li class="page-item ">
@@ -98,8 +102,6 @@
         }
 
         addsActive()
-
-
       </script>
 
 </body>

@@ -22,7 +22,6 @@ def profile_data(value,x):
         if i['username'] > x:
             a = {}
 
-
             s = x +"/"+ i['username']
             a['url'] = f"/userroom/{ i['username'] }/{x}"
 
@@ -44,16 +43,7 @@ def profile_data(value,x):
 
             q.append( a)
 
+
     return q
 
-# @register.filter(name="fri_lst_url", is_safe=True)
-# def friend_list_url(string, sep):
-   
-#     """Return the string split by sep.
-
-#     Example usage: {{ value|split:"/" }}
-#     """
-#     str = string.split(sep)
-#     param = str[0]+" "+str[1]
-#     return str
 

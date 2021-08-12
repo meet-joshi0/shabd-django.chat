@@ -6,17 +6,12 @@
 
 <body class="mt-5 " style="overflow:auto; background-color:#e9f5db "  >
 
-
     <div class="container-fluid ">
-
-
-
         <div class="row ">
 
             <div class="col-sm-3 mx-auto   h-50" >
 
                 {{ room_name | json_script:"room_name" }}
-
 
                 {% include 'active_group_users.html' with room_nm=room_name %}
 
@@ -36,30 +31,21 @@
                 </hr> 
                 </div>
 
-
             {% endfor %}
 
                     </div>
-
-
-
-
                 </div>
-
-
 
                   <div class=" mb-4 container  mt-3 input-group ">
                     <input id="chat-message-input" class="form-control rounded-pill  " type="text" placeholder="message">
                     <i type="button" id="chat-message-submit" value="send"  class="far fa-paper-plane fs-2  "></i>  
                 </div> 
 
-
             </div>
         </div>
 
     </div>
     </div>
-
 
     <script>
 
@@ -74,19 +60,11 @@
 
         }
 
-
         chatSocket.onmessage = function (e) {
           
-
             const data = JSON.parse(e.data)
             var message = data['message']
             let cleaned_message = DOMPurify.sanitize( message , {USE_PROFILES: {html: false}} );
-
-
-
-             
-
-
 
 
             var struct = ('<div id="chat-log" style="background-color:#fff3b0" class="container m-2 shadow text-dark fw-bold rounded-4  border-dark overflow-auto">' +
@@ -132,10 +110,7 @@
                 }
         }
 
-   
-
     </script>
-
 
 </body>
 {% endblock content_body %}

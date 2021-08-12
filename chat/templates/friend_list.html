@@ -5,7 +5,6 @@
 {% load thumbnail  %}
 {% block content_body %}
 
-{% comment %} c8f0e0 {% endcomment %}
 
 <body style="background-color:#b0f7da">
 
@@ -14,7 +13,7 @@
 
   {% if object_list %}
 
-  {% for item in object_list|getprofile:user.get_username  %} 
+    {% for item in object_list|getprofile:user.get_username  %} 
 
   <div class="col-md-4">
 
@@ -29,16 +28,14 @@
 
     {% endfor %}
     
-     {% else %} 
+  {% else %} 
   
   {% include 'shabd_404.html' %}
 
   {% endif %}
 
 	</div>
-
-
 </div>
-
 </body>
+
 {% endblock content_body %}

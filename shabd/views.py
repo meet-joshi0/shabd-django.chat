@@ -5,12 +5,12 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
 from django.core.paginator import  Paginator,InvalidPage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 # views 
 
 
@@ -20,6 +20,7 @@ class index(TemplateView):
 class usersList(ListView):
     model = CustomeUserProfile
     template_name = "user_list.html"
+   
     paginate_by = 12
 
 
@@ -88,8 +89,13 @@ class friendList(LoginRequiredMixin,ListView):
 class register(generic.CreateView):
     form_class = RegistrationForm
     template_name = "registration/register.html"
-    success_url = reverse_lazy("index")
+    #success_url = reverse_lazy("index")
 
+    def form_valid(self, form):
+        form.save()
+        user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'],)
+        login(self.request, user)
+        return HttpResponseRedirect(reverse('index'))
  
 
 
@@ -127,7 +133,7 @@ class LoginView(FormView):
 
 class groupChat(LoginRequiredMixin, TemplateView):
     template_name = "group_chat.html"
-    login_url = reverse_lazy("index")
+    login_url = reverse_lazy("login")
 
 
     def get_context_data(self, *args, **kwargs):
@@ -163,6 +169,8 @@ class userchat(LoginRequiredMixin,TemplateView):
     template_name = "user_chat.html"
     login_url = reverse_lazy("login")
 
+    
+
     def get_context_data(self, *args, **kwargs):
         context = super(userchat, self).get_context_data(*args, **kwargs)
         user = self.request.user.username
@@ -177,7 +185,6 @@ class userchat(LoginRequiredMixin,TemplateView):
         else:
             reciver = "null"
 
-        # name = 'chat_%s_%s' % (reciver, user)
 
         message1 = ChatMessage.objects.filter(
             Q(sender=user) & Q(reciver=reciver))

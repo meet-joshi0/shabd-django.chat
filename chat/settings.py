@@ -28,7 +28,7 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = False
+DEBUG = True
 #TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']  #change this
@@ -53,8 +53,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -166,7 +164,7 @@ THUMBNAIL_ALIASES = {
 
 
 AUTH_USER_MODEL = 'shabd.CustomeUserProfile'
-LOGIN_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = 'index'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 CORS_ORIGIN_ALLOW_ALL = True

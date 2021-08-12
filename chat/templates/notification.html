@@ -34,8 +34,6 @@
       var csrf = "{{ csrf_token }}"
       var recipient = "";
  
-
-
       const chatSocketNotify = new WebSocket(
         "ws://" + window.location.host + "/ws/notification/" + name + "/"
       );
@@ -70,15 +68,11 @@
         const data = JSON.parse(e.data);
         ping = data["message"];  
 
-              
-        
         if (Array.isArray(ping)  )
-         {
-                   
+         {        
             ping.map(a=>{
             ping = a
            sendNotification(ping)
-
            })
 
          }else{
@@ -88,19 +82,13 @@
          }
         }
 
-        // ------------------------
-
     $('#add').click(function(){
 
           const url =  window.location.href
           var button_Text = $(this).text()
 
-
-  
     if ( button_Text == "Friend" ){
           
-
-
     $.ajax(
     {
         type:"POST",
@@ -110,18 +98,14 @@
                  add_friend_name: recipient
                 },
                 success: function( data ) 
-                {
+        {
                   
-
         friend_unfriend_button(data)
-
-        
-         }
+        }
 
      })
 
     } else {
-      
       
       $.ajax(
     {
@@ -133,9 +117,7 @@
         },
         success: function( data ) 
         {
-        
         friend_unfriend_button(data)
-
        }
 
      })
@@ -144,14 +126,11 @@
 
 });
 
-
 $( document ).ready(function() {
-
 
 const url =  window.location.href
 
           var splitUrl = url.split('userroom/') 
-
           var final = splitUrl.reverse()[0].split("/")
 
           if(name == final[0]){
@@ -159,8 +138,6 @@ const url =  window.location.href
           }else{
             recipient = final[0]
           }
-          console.log(" split url ",recipient)
-
 
  $.ajax(
     {
@@ -173,19 +150,10 @@ const url =  window.location.href
         },
         success: function( data ) 
         {
-
-
         friend_unfriend_button(data)
-
-
-        
         }
      })
 });
-
-
-
-       
 
     </script>
   </body>
