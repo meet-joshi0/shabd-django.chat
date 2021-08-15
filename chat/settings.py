@@ -38,7 +38,7 @@ SECRET_KEY = config('SECRET_KEY')
 #DEBUG = False
 #TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['*']  #change this
+ALLOWED_HOSTS = ['shabd-chat.herokuapp.com','127.0.0.1']  #change this
 
 
 # Application definition
@@ -152,6 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'chat', 'static'), )
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CHANNEL_LAYERS = {
     'default': {
