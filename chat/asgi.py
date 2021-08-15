@@ -9,14 +9,15 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
 
 import os
 import shabd.routing
+import django
 
 from django.core.asgi import get_asgi_application
-from channels.routing import ProtocolTypeRouter,URLRouter,ChannelNameRouter
+from channels.routing import get_default_application , ProtocolTypeRouter,URLRouter,ChannelNameRouter
 from channels.auth import AuthMiddlewareStack
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chat.settings')
 
+django.setup()
 
-application = ProtocolTypeRouter({
+application =  ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket":AuthMiddlewareStack(
         URLRouter(

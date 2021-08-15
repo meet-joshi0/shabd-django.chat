@@ -10,10 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os
-
+from pathlib import Path
+import django
 from decouple import config
+from django.conf import settings
+
+
+#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chat.settings')
+#django.setup()
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +35,7 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = False
 #TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']  #change this
@@ -48,6 +55,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'easy_thumbnails',
     'shabd',
+
 ]
 
 MIDDLEWARE = [
@@ -80,7 +88,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'chat.wsgi.application'
-ASGI_APPLICATION = "chat.asgi.application"
+ASGI_APPLICATION = 'chat.asgi.application'
 
 
 # Database
@@ -177,4 +185,6 @@ INTERNAL_IPS = ('127.0.0.1', '0.0.0.0', 'localhost',)
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
+
 
