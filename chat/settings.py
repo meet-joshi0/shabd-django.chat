@@ -93,7 +93,7 @@ ASGI_APPLICATION = 'chat.asgi.application'
 
 # Database
 
-# DATABASES = {
+DATABASES = {
  
 
 #     'default': {
@@ -111,9 +111,8 @@ ASGI_APPLICATION = 'chat.asgi.application'
 #         'PORT': '',
 
 #     }
-# }
+ }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'] = dj_database_url.config(conn_max_age=500)
 
 
