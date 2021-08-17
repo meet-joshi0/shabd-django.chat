@@ -38,7 +38,7 @@ SECRET_KEY = config('SECRET_KEY')
 #DEBUG = False
 #TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['shabd-chat.herokuapp.com','127.0.0.1']  #change this
+ALLOWED_HOSTS = ['shabd-chat.herokuapp.com','127.0.0.1','ec2-34-204-128-77.compute-1.amazonaws.com']  #change this
 
 
 # Application definition
@@ -100,13 +100,13 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'chatdb',
+        'NAME': 'dcvde286gaa0a5',
 
-        'USER': 'zer',
+        'USER': 'wbheavwumyttab',
 
         'PASSWORD': config('password'),
 
-        'HOST': 'localhost',
+        'HOST': 'ec2-34-204-128-77.compute-1.amazonaws.com',
 
         'PORT': '5432',
 
