@@ -150,7 +150,7 @@ THUMBNAIL_ALIASES = {
 #THUMBNAIL_DEBUG = True
 
 
-#AUTH_USER_MODEL = 'shabd.CustomeUserProfile'
+AUTH_USER_MODEL = 'shabd.CustomeUserProfile'
 LOGIN_REDIRECT_URL = 'index'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
