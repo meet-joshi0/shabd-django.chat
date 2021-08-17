@@ -17,9 +17,6 @@ from decouple import config
 from django.conf import settings
 import dj_database_url
 
-#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chat.settings')
-#django.setup()
-
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -113,7 +110,7 @@ DATABASES = {
 #     }
  }
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=500)
+DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
 
 
 # Password validation
