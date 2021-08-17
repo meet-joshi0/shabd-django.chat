@@ -93,7 +93,7 @@ ASGI_APPLICATION = 'chat.asgi.application'
 DATABASES = {
  
 
-#     'default': {
+     'default': {dj_database_url.config(default=config('DATABASE_URL'))
 
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
@@ -107,10 +107,10 @@ DATABASES = {
 
 #         'PORT': '',
 
-#     }
+     }
  }
+#DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
 
-DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
 
 
 # Password validation
