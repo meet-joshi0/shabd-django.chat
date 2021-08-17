@@ -90,28 +90,31 @@ ASGI_APPLICATION = 'chat.asgi.application'
 
 # Database
 
-DATABASES = {
+# DATABASES = {
  
 
-     'default': {
+#      'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'chatdb',
+#         'NAME': 'chatdb',
 
-        'USER': 'zer',
+#         'USER': 'zer',
 
-        'PASSWORD': config('password'),
+#         'PASSWORD': config('password'),
 
-        'HOST': 'localhost',
+#         'HOST': 'localhost',
 
-        'PORT': '5432',
+#         'PORT': '5432',
 
-     }
- }
+#      }
+#  }
 
-db_from_env = dj_database_url.config(conn_max_age=500, ssl_require=True)
-DATABASES['default'].update(db_from_env)
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+}
 
 
 # Password validation
