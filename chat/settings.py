@@ -89,33 +89,6 @@ ASGI_APPLICATION = 'chat.asgi.application'
 
 
 
-# Database
-
-# DATABASES = {
- 
-
-#      'default': {
-
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-#         'NAME': 'chatdb',
-
-#         'USER': 'zer',
-
-#         'PASSWORD': config('password'),
-
-#         'HOST': 'localhost',
-
-#         'PORT': '5432',
-
-#      }
-#  }
-
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=config('DATABASE_URL')
-#     )
-# }
 
 DATABASES = {'default': dj_database_url.config()}
 
