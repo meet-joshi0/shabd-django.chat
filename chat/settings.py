@@ -15,7 +15,7 @@ from pathlib import Path
 import django
 from decouple import config
 from django.conf import settings
-
+import dj_database_url
 
 #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chat.settings')
 #django.setup()
@@ -93,25 +93,29 @@ ASGI_APPLICATION = 'chat.asgi.application'
 
 # Database
 
-DATABASES = {
+# DATABASES = {
  
 
-    'default': {
+#     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'dcvde286gaa0a5',
+#         'NAME': 'dcvde286gaa0a5',
 
-        'USER': 'wbheavwumyttab',
+#         'USER': 'wbheavwumyttab',
 
-        'PASSWORD': config('password'),
+#         'PASSWORD': config('password'),
 
-        'HOST': 'ec2-34-204-128-77.compute-1.amazonaws.com',
+#         'HOST': 'ec2-34-204-128-77.compute-1.amazonaws.com',
 
-        'PORT': '5432',
+#         'PORT': '5432',
 
-    }
-}
+#     }
+# }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
 
 
 # Password validation
