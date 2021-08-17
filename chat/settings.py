@@ -100,22 +100,21 @@ ASGI_APPLICATION = 'chat.asgi.application'
 
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-#         'NAME': 'dcvde286gaa0a5',
+#         'NAME': '',
 
-#         'USER': 'wbheavwumyttab',
+#         'USER': '',
 
 #         'PASSWORD': config('password'),
 
-#         'HOST': 'ec2-34-204-128-77.compute-1.amazonaws.com',
+#         'HOST': '',
 
-#         'PORT': '5432',
+#         'PORT': '',
 
 #     }
 # }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-
+DATABASES['default'] = dj_database_url.config(conn_max_age=500)
 
 
 # Password validation
