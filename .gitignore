@@ -11,7 +11,6 @@ db.sqlite3
 db.sqlite3-journal
 media
 ChatEnv
-migrations
 chat_design/
 initial_data.json
 
