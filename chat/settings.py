@@ -39,7 +39,7 @@ SECRET_KEY = config('SECRET_KEY')
 #DEBUG = False
 #TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['shabd-chat.herokuapp.com','127.0.0.1','ec2-34-204-128-77.compute-1.amazonaws.com']  #change this
+ALLOWED_HOSTS = ['shabd-chat.herokuapp.com','ec2-34-204-128-77.compute-1.amazonaws.com','cloudinary.com']  #change this
 
 
 # Application definition
