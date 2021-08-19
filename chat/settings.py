@@ -171,6 +171,6 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
-DROPBOX_OAUTH2_TOKEN = config('dropbox_token')
+DROPBOX_OAUTH2_TOKEN = config('DROPBOX_TOKEN')
 
 
