@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'easy_thumbnails',
     'shabd',
-    'storage',
+    'django-storages',
 
 ]
 
