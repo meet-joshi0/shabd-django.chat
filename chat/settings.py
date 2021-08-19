@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import django
 import dj_database_url
+import cloudinary
+import cloudinary_storage
 
 from pathlib import Path
 from decouple import config
@@ -52,8 +54,9 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'corsheaders',
     'easy_thumbnails',
+    'cloudinary',
+    'cloudinary_storage',
     'shabd',
-    'storages',
 
 ]
 
@@ -170,8 +173,15 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # storage settings
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-DROPBOX_ROOT_PATH = '/media/'
-DROPBOX_OAUTH2_TOKEN = config('DROPBOX_TOKEN')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET':config('API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
 
 
