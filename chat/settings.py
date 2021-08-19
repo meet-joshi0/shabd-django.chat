@@ -167,8 +167,10 @@ INTERNAL_IPS = ('127.0.0.1', '0.0.0.0', 'localhost',)
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
-# whitenoice settings
+# storage settings
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
+DROPBOX_OAUTH2_TOKEN = config('dropbox_token')
 
 
