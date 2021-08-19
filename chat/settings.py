@@ -11,11 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-from pathlib import Path
 import django
+import dj_database_url
+
+from pathlib import Path
 from decouple import config
 from django.conf import settings
-import dj_database_url
 
 
 
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -164,6 +166,9 @@ INTERNAL_IPS = ('127.0.0.1', '0.0.0.0', 'localhost',)
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# whitenoice settings
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
