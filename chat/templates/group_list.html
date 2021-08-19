@@ -96,7 +96,11 @@
       <div class=" col-md-4  ">
         <div class='card text-center   mb-4 ' style='width:auto'>
           <img src="{{  item.groupImage.url  }} " style='height:14rem' class='card-img-top'>
-
+       
+       
+      <img src="{% cloudinary item.groupImage THUMBNAIL %} " style='height:14rem' class='card-img-top'>   
+        
+        
           <div class='card-body ' style='background-color: #468faf '>
 
             <a class='fw-bloder badge  card-text text-dark text-decoration-none'
