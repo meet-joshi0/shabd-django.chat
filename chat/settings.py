@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'easy_thumbnails',
     'shabd',
+    'storage',
 
 ]
 
@@ -170,7 +171,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # storage settings
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-
+DROPBOX_ROOT_PATH = '/media/'
 DROPBOX_OAUTH2_TOKEN = config('DROPBOX_TOKEN')
 
 
