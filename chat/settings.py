@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'corsheaders',
     'easy_thumbnails',
-    'django-storage',
     'shabd',
 
 ]
