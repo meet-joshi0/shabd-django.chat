@@ -96,9 +96,8 @@
 
       <div class=" col-md-4  ">
         <div class='card text-center   mb-4 ' style='width:auto'>
-          <img src="{{  item.groupImage  }} " style='height:14rem' class='card-img-top'>
+        {% cloudinary item.groupImage width=300 height=300 %}
        
-       {% cloudinary item.groupImage width=100 height=100 %}
 
           <div class='card-body ' style='background-color: #468faf '>
 
