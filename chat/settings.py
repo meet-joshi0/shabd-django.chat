@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 import django
+from django import conf
 import dj_database_url
 import cloudinary
 import cloudinary_storage
@@ -176,9 +177,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CLOUDINARY_STORAGE = {
-    'cloud_name': 'shabd-chat',
-    'api_key': config('api_key'),
-    'api_secret':config('api_secret'),
+    'CLOUD_NAME': config('cloud_name'),
+    'API_KEY': config('api_key'),
+    'API_SECRET': config('api_secret'),
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
