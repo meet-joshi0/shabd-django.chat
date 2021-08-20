@@ -176,7 +176,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CLOUDINARY_STORAGE = {
-    'cloud_name': config('cloud_name'),
+    'cloud_name': 'shabd-chat',
     'api_key': config('api_key'),
     'api_secret':config('api_secret'),
 }
