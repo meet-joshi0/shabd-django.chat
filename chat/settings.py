@@ -177,8 +177,8 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 CLOUDINARY_STORAGE = {
     'cloud_name': config('CLOUD_NAME'),
-    'API_KEY': config('API_KEY'),
-    'API_SECRET':config('API_SECRET'),
+    'api_key': config('API_KEY'),
+    'api_secret':config('API_SECRET'),
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
