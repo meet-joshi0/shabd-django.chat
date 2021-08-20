@@ -176,9 +176,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CLOUDINARY_STORAGE = {
-    'cloud_name': config('CLOUD_NAME'),
-    'api_key': config('API_KEY'),
-    'api_secret':config('API_SECRET'),
+    'cloud_name': config('cloud_name'),
+    'api_key': config('api_key'),
+    'api_secret':config('api_secret'),
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
