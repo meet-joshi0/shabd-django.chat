@@ -30,11 +30,11 @@
 
 // changed from window.location.host to location.host
     const Active_User_Socket = new WebSocket(
-      'ws://' + location.host + '/ws/activeusers/' + roomName + '/'
+      'wss://' + location.host + '/ws/activeusers/' + roomName + '/'
     );
 
     const active_new_user = new WebSocket(
-      "ws://" + window.location.host + "/ws/activeusernew/" + name + "/"
+      "wss://" + window.location.host + "/ws/activeusernew/" + name + "/"
     );
 
 
