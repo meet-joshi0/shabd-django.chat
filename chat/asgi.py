@@ -17,14 +17,13 @@ from channels.auth import AuthMiddlewareStack
 
 django.setup()
 
-application = get_default_application()
 
-# application =  ProtocolTypeRouter({
-#     "http": get_asgi_application(),
-#     "websocket":AuthMiddlewareStack(
-#         URLRouter(
-#             shabd.routing.websocket_urlpatterns
-#         )
-#     )
+application =  ProtocolTypeRouter({
+    "http": get_asgi_application(),
+    "websocket":AuthMiddlewareStack(
+        URLRouter(
+            shabd.routing.websocket_urlpatterns
+        )
+    )
 
-# })
+})
