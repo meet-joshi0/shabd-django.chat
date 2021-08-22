@@ -58,12 +58,12 @@
         var url = short_name_path(username,roomName)
 
         const chatSocket = new WebSocket(
-            'ws://' + window.location.host + '/ws/userchat/' + url + '/'
+            'wss://' + window.location.host + '/ws/userchat/' + url + '/'
         );
 
 
         const chatSocket2 = new WebSocket(
-            'ws://' + window.location.host + '/ws/notification/' + roomName + '/'
+            'wss://' + window.location.host + '/ws/notification/' + roomName + '/'
 
         );
 
