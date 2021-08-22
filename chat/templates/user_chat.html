@@ -68,6 +68,7 @@
         );
 
         chatSocket2.onopen = function (e) {
+            console.log("connection open ..... ")
             $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
         };
 
