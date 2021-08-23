@@ -51,10 +51,11 @@
         var roomName = JSON.parse(document.getElementById("room_name").textContent);
 
         const chatSocket = new WebSocket(
-            'wss://' + window.location.host + '/ws/chat/' + roomName + '/'
+            'wss://' + window.location.host + '/ws/groupchat/' + roomName + '/'
         );
 
         chatSocket.onopen = function(e){
+            console.log("connect is opened for group chat ... ")
         $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
 
         }
