@@ -140,15 +140,13 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'chat', 'static'), )
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-#redis_db_url ='redis://'+config('redis_password')+'@redis-18556.c14.us-east-1-2.ec2.cloud.redislabs.com/18556'
-redis_db_url ='redis://redis-18556.c14.us-east-1-2.ec2.cloud.redislabs.com/18556'
+redis_db_url ='redis://:'+config('redis_password')+'@redis-18556.c14.us-east-1-2.ec2.cloud.redislabs.com/18556'
 
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [{'address':redis_db_url,'password':config('redis_password')}],
-
+            "hosts": [redis_db_url],
         },
     },
 }
