@@ -49,7 +49,7 @@
     <script>
 
         var roomName = JSON.parse(document.getElementById("room_name").textContent);
-
+        console.log(" room name ", roomName)
         const chatSocket = new WebSocket(
             'wss://' + window.location.host + '/ws/groupchat/' + roomName + '/'
         );
