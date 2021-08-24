@@ -53,10 +53,6 @@
             'wss://' + window.location.host + '/ws/groupchat/' + roomName + '/'
         );
 
-          chatSocket.send(JSON.stringify({
-                'message': "this is testing"
-            }))
-
 
         chatSocket.onopen = function(e){
         console.log("connect is opened for group chat ... ")
