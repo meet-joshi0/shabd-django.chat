@@ -49,13 +49,17 @@
     <script>
 
         var roomName = JSON.parse(document.getElementById("room_name").textContent);
-        console.log(" room name ", roomName)
         const chatSocket = new WebSocket(
             'wss://' + window.location.host + '/ws/groupchat/' + roomName + '/'
         );
 
+          chatSocket.send(JSON.stringify({
+                'message': "this is testing"
+            }))
+
+
         chatSocket.onopen = function(e){
-            console.log("connect is opened for group chat ... ")
+        console.log("connect is opened for group chat ... ")
         $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
 
         }
