@@ -16,7 +16,7 @@ from django.utils import timezone
 # =================================================================== #
 
 # stricrredis
-r = redis.Redis(decode_responses=True)
+r = redis.Redis(host='redis-18556.c14.us-east-1-2.ec2.cloud.redislabs.com',port='18556',db='django-chat',decode_responses=True)
 
 
 class GroupChatConsumer(AsyncWebsocketConsumer):
