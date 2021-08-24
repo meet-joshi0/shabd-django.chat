@@ -15,6 +15,7 @@ from django.utils import timezone
 # ----------------------- GROUP CHAT  ------------------------------- #
 # =================================================================== #
 
+# stricrredis
 r = redis.Redis(decode_responses=True)
 
 
