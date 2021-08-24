@@ -28,20 +28,20 @@ class GroupChatConsumer(AsyncWebsocketConsumer):
 
         user_name = str(self.scope['user'])
         username_group = "new_user_%s" % (user_name)
-        # add_online_user = await userList(self, user_name)
-        # user_data = await userInformationList(self, user_name)
+        add_online_user = await userList(self, user_name)
+        user_data = await userInformationList(self, user_name)
 
 
     
-        # send userdata to NewActiveGroupUser consumer
-        # await self.channel_layer.group_send(
-        #     username_group,
-        #     {
-        #         "type": "chat_message",
-        #         "message":  user_data,
+        #send userdata to NewActiveGroupUser consumer
+        await self.channel_layer.group_send(
+             username_group,
+            {
+                "type": "chat_message",
+                "message":  user_data,
 
-        #     }
-        # )
+            }
+        )
 
         await self.channel_layer.group_add(
             self.room_group_name, self.channel_name
@@ -363,7 +363,8 @@ def userInformationList(self, name):
     
     status = []
 
-    for x in r.smembers(self.room_group_name):
+    for x in r.members(self.room_group_name):
+#    for x in r.smembers(self.room_group_name):
 
         data = CustomeUserProfile.objects.filter(
             username=x).values('userImage')
@@ -404,8 +405,9 @@ def singleUserInformation(self, name):
 # add username into redis database (set)
 @sync_to_async
 def userList(self, name):
+#    user_list = r.sadd(self.room_group_name, name)
 
-    user_list = r.sadd(self.room_group_name, name)
+    user_list = r.add(self.room_group_name, name)
     return user_list
 
 # find reciver name given two name where username is logged  usersname 
