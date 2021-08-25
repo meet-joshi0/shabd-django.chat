@@ -75,7 +75,7 @@
          path = url_path_userroom(data_connect['username'], "{{ user.get_username }}")
          var usename =  data_connect['username']
          var userimage = data_connect['userimage']
-            console.log("user image data.connect ", userimage)
+          console.log("user image data.connect ", userimage)
 
           var msgnotify = user_notification(usename,userimage,path)
 
@@ -93,6 +93,9 @@
 
     function user_notification(username,userimage,url){
  console.log("userimage nope media  ",userimage)
+
+{% cloudinary userimage width=100 height=100 %}
+
       userimage ="{{ MEDIA_URL }}"+userimage+".300x300_q75.jpg"
 
 
