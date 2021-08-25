@@ -371,6 +371,7 @@ def userInformationList(self, name):
             username=x).values('userImage')
 
         user_image = data[0]
+        print("user image .....>  ",user_image)
 
         user_data = {
             'connect': {
