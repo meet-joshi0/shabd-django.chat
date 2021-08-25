@@ -40,7 +40,7 @@ function short_name_path(name1, name2) {
 function friend_unfriend_button(data) {
 
   if (data == "True") {
-    return $("#add").text("UnFriend");
+    return $("#add").text("Unfriend");
   } else {
     return $("#add").text("Friend");
   }
