@@ -90,10 +90,7 @@
         {% endif %}
 
       {% for item in group_list %}
-<script>
 
-console.log(" groupimage ", item.groupImage)
-</script>
       <div class=" col-md-4  ">
         <div class='card text-center   mb-4 ' style='width:auto'>
         {% cloudinary item.groupImage width=315  %}
@@ -104,7 +101,7 @@ console.log(" groupimage ", item.groupImage)
             <a class='fw-bloder badge  card-text text-dark text-decoration-none'
               style='font-size: 23px;background-color:#ffe8d6  ' href=/room/{{item.groupname }}> 
               {{item.groupname|truncatechars:20 }} </a>
-
+{{ item.groupImage }}
 
             </br>
             <button class="btn  m-1 w-bloder fs-4 card-text text-dark text-decoration-none"
