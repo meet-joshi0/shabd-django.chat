@@ -1,5 +1,6 @@
 {% load static %}
 {% load thumbnail %}
+{% load cloudinary %}
 
 <html>
 
@@ -95,7 +96,7 @@
      var notification_design =  '<div class="card mb-3 shadow rounded-bottom " id = '+ username +'  style=" height:3rem;   background-color:#edddd4; ">' +
             '<div class="row g-0">' +
             '<div class="col ">' +
-            '<img src=" ' + userimage+ ' " style="height:2.8rem;width:6rem; object-fit: cover; "  class="img-fluid " >' +
+            '<img src=" ' + {% cloudinary item.groupImage width=315  %}+ ' " style="height:2.8rem;width:6rem; object-fit: cover; "  class="img-fluid " >' +
             '</div>' +
             '<div class="col"  >' +
             '<div class="card-body text-truncate p-1 "   >' +
