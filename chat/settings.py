@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 import django
-from django import conf
 import dj_database_url
 import cloudinary
 import cloudinary_storage

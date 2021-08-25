@@ -8,6 +8,7 @@ from channels.layers import get_channel_layer
 from channels.db import database_sync_to_async
 from datetime import datetime
 from django.utils import timezone
+from decouple import config
 
 
 
@@ -16,7 +17,7 @@ from django.utils import timezone
 # =================================================================== #
 
 # stricrredis
-r = redis.Redis(host='',port='',password='',db='',decode_responses=True)
+r = redis.Redis(host=config('redis_host'),port=config('redis_port'),password=config('redis_password'),db=config('django-chat'),decode_responses=True)
 
 
 class GroupChatConsumer(AsyncWebsocketConsumer):
