@@ -17,7 +17,7 @@ from decouple import config
 # =================================================================== #
 
 # stricrredis
-r = redis.Redis(host=config('redis_host'),port=config('redis_port'),password=config('redis_password'),db=config('redis_db'),decode_responses=True)
+r = redis.Redis(host=config('redis_host'),port=config('redis_port'),password=config('redis_password'),db='0',decode_responses=True)
 
 
 class GroupChatConsumer(AsyncWebsocketConsumer):
