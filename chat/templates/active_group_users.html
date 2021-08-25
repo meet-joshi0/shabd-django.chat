@@ -52,6 +52,7 @@
             var path = url_path_userroom(data_connect['username'], "{{ user.get_username }}")
             var usename =  data_connect['username']
             var userimage = data_connect['userimage']
+            console.log("user image ", userimage)
 
             var msgnotify = user_notification(usename,userimage,path)
           
@@ -74,6 +75,7 @@
          path = url_path_userroom(data_connect['username'], "{{ user.get_username }}")
          var usename =  data_connect['username']
          var userimage = data_connect['userimage']
+            console.log("user image ", userimage)
 
           var msgnotify = user_notification(usename,userimage,path)
 
@@ -90,13 +92,16 @@
     };
 
     function user_notification(username,userimage,url){
+              {% cloudinary userimage width=315  %}
+
       userimage ="{{ MEDIA_URL }}"+userimage+".300x300_q75.jpg"
+            console.log("user image ", userimage)
 
 
      var notification_design =  '<div class="card mb-3 shadow rounded-bottom " id = '+ username +'  style=" height:3rem;   background-color:#edddd4; ">' +
             '<div class="row g-0">' +
             '<div class="col ">' +
-            '<img src=" ' + {% cloudinary item.groupImage width=315  %}+ ' " style="height:2.8rem;width:6rem; object-fit: cover; "  class="img-fluid " >' +
+            '<img src=" ' + + ' " style="height:2.8rem;width:6rem; object-fit: cover; "  class="img-fluid " >' +
             '</div>' +
             '<div class="col"  >' +
             '<div class="card-body text-truncate p-1 "   >' +
