@@ -92,8 +92,7 @@
     };
 
     function user_notification(username,userimage,url){
-              {% cloudinary userimage width=315  %}
-
+ console.log("userimage ",userimage)
       userimage ="{{ MEDIA_URL }}"+userimage+".300x300_q75.jpg"
             console.log("user image ", userimage)
 
