@@ -94,15 +94,14 @@
     function user_notification(username,userimage,url){
  console.log("userimage nope media  ",userimage)
 
-{% cloudinary userimage width=100 height=100 %}
 
-      userimage ="{{ MEDIA_URL }}"+userimage+".300x300_q75.jpg"
+      //userimage ="{{ MEDIA_URL }}"+userimage+".300x300_q75.jpg"
 
 
      var notification_design =  '<div class="card mb-3 shadow rounded-bottom " id = '+ username +'  style=" height:3rem;   background-color:#edddd4; ">' +
             '<div class="row g-0">' +
             '<div class="col ">' +
-            '<img src=" ' + + ' " style="height:2.8rem;width:6rem; object-fit: cover; "  class="img-fluid " >' +
+            '<img src=" ' + + ' " style="height:2.8rem;width:6rem; object-fit: cover; "  class="img-fluid " >'{% cloudinary userimage width=100 height=100 %} +
             '</div>' +
             '<div class="col"  >' +
             '<div class="card-body text-truncate p-1 "   >' +
