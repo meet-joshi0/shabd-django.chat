@@ -162,7 +162,6 @@ LOGIN_REDIRECT_URL = 'index'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_COOKIE_SECURE = True
 LOGOUT_REDIRECT_URL='index' 
 
 INTERNAL_IPS = ('127.0.0.1', '0.0.0.0', 'localhost',)
