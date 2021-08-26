@@ -8,9 +8,10 @@ from django.contrib.auth import authenticate, login
 from django.core.paginator import  Paginator,InvalidPage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import redirect
 # views 
 
 
@@ -43,6 +44,18 @@ class groupList(CreateView):
     success_url = reverse_lazy('grouplist')
     template_name = 'group_list.html'
     model = ChatGroup
+    permission_required = ('shabd.can_view', )
+
+    # def post(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated:
+    #         return null    
+    #     else:
+
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            return super().form_valid(form)
+        else:
+            return redirect('login')
 
 
     def get_context_data(self,**kwargs):
