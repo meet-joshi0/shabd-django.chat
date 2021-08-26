@@ -94,10 +94,9 @@
     function user_notification(username,userimage,url){
 
 
-      //userimage ="{{ MEDIA_URL }}"+userimage+".300x300_q75.jpg"
-        image= "https://res.cloudinary.com/shabd-chat/image/upload/h_100,w_100/v1/"+userimage
- console.log("userimage nope media  ",image)
-     var notification_design =  '<div class="card mb-3 shadow rounded-bottom " id = '+ username +'  style=" height:3rem;   background-color:#edddd4; ">' +
+    image= "https://res.cloudinary.com/shabd-chat/image/upload/h_100,w_100/v1/"+userimage
+    
+    var notification_design =  '<div class="card mb-3 shadow rounded-bottom " id = '+ username +'  style=" height:3rem;   background-color:#edddd4; ">' +
             '<div class="row g-0">' +
             '<div class="col ">' +
             '<img src=" ' + image+ ' " style="height:2.8rem;width:6rem; object-fit: cover; "  class="img-fluid " >'+
