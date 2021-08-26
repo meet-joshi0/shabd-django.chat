@@ -53,7 +53,7 @@ class groupList(CreateView):
 
     def form_valid(self, form):
         if self.request.user.is_authenticated:
-            return super(GroupForm,self).form_valid(form)
+            return super(groupList,self).form_valid(form)
         else:
             return redirect('login')
 
