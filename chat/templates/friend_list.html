@@ -18,7 +18,8 @@
   <div class="col-md-4">
 
   <div class='card text-center  '  style='width:auto;' > 
-                  <img src="{{ item.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'>
+                  {% comment %} <img src="{{ item.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'> {% endcomment %}
+                   {% cloudinary item.img width=315  %}
 
                       <div class='card-body' style="background-color:#29BB89"   > 
                       <a class = 'btn border-white border-4 rounded-pill fw-bloder card-text text-dark fw-bolder text-decoration-none a' style='font-size: 23px; background-color:#91C788  ' href={{ item.url }} > {{ item.username  }}</a>   
