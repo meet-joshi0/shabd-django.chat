@@ -2,6 +2,7 @@
 {% load static %}
 {% load thumbnail %}
 {% load event_tags %}
+{% load cloudinary %}
 {% block content_body %}
 
 <body style="background-color: #b0f7da;">
@@ -40,8 +41,7 @@
     <div class="col-md-4  ">
 
       <div class='card text-center m-2' style='width:auto;'>
-        <img src="{{ users.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'>
-               {% comment %} {% cloudinary users.img class="card-img-top" width=200 height=250 %} {% endcomment %}
+      {% cloudinary users.img class="card-img-top" width=200 height=250 %} 
 
         <div class='card-body ' style="background-color:#adc178">
 
