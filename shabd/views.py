@@ -46,16 +46,17 @@ class groupList(CreateView):
     model = ChatGroup
     permission_required = ('shabd.can_view', )
 
-    # def post(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         return null    
-    #     else:
-
-    def form_valid(self, form):
-        if self.request.user.is_authenticated:
-            return super().form_valid(form)
+    def post(self, request):
+        if request.user.is_authenticated:
+            return super(groupList,self).post(request)    
         else:
             return redirect('login')
+
+    # def form_valid(self, form):
+    #     if self.request.user.is_authenticated:
+    #         return super().form_valid(form)
+    #     else:
+    #         return redirect('login')
 
 
     def get_context_data(self,**kwargs):
