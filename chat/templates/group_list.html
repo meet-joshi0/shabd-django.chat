@@ -4,11 +4,7 @@
 {% load thumbnail %}
 {% load cloudinary %}
 {% block content_body %}
-<style>
-img {
-.card-img-top
-}
-</style>
+
 <body style="background-color: #b0f7da;">
 
   <div class="container">
@@ -101,7 +97,7 @@ img {
         <div class='card text-center   mb-4 ' style='width:auto'>
         {% comment %} {% cloudinary item.groupImage width=315 height=250 %} {% endcomment %}
        
-       {% cloudinary item.groupImage width=200 height=250 %}"
+       {% cloudinary item.groupImage class="card-img-top" width=200 height=250 %}
 
           <div class='card-body ' style='background-color: #468faf '>
 
