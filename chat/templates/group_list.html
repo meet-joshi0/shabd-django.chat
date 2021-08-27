@@ -4,9 +4,11 @@
 {% load thumbnail %}
 {% load cloudinary %}
 {% block content_body %}
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding"
-
+<style>
+img {
+.card-img-top
+}
+</style>
 <body style="background-color: #b0f7da;">
 
   <div class="container">
@@ -99,7 +101,7 @@
         <div class='card text-center   mb-4 ' style='width:auto'>
         {% comment %} {% cloudinary item.groupImage width=315 height=250 %} {% endcomment %}
        
-       {% cloudinary item.groupImage|append_attr:"class:card-img-top" width=200 height=250 %}"
+       {% cloudinary item.groupImage width=200 height=250 %}"
 
           <div class='card-body ' style='background-color: #468faf '>
 
