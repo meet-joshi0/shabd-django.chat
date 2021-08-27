@@ -40,8 +40,8 @@
     <div class="col-md-4  ">
 
       <div class='card text-center m-2' style='width:auto;'>
-        {% comment %} <img src="{{ users.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'> {% endcomment %}
-               {% cloudinary users.img class="card-img-top" width=200 height=250 %}
+        <img src="{{ users.img|thumbnail_url:'avatar' }}"  style='height:14rem'  class='card-img-top'>
+               {% comment %} {% cloudinary users.img class="card-img-top" width=200 height=250 %} {% endcomment %}
 
         <div class='card-body ' style="background-color:#adc178">
 
