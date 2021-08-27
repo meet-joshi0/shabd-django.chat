@@ -11,11 +11,11 @@
     <div class="row">
       <div class="col text-center">
     
-     {% if  user.get_username %}
+     {% comment %} {% if  user.get_username %} {% endcomment %}
 
         <button class=" btn btn-warning m-3 rounded-pill text-dark " type="button" data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"> Create new Group</button>
-    {% endif %}
+    {% comment %} {% endif %} {% endcomment %}
       </div>
     </div>
   </div>
