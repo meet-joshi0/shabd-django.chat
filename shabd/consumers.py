@@ -26,15 +26,12 @@ class GroupChatConsumer(AsyncWebsocketConsumer):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
 
-       
-
         user_name = str(self.scope['user'])
         username_group = "new_user_%s" % (user_name)
         add_online_user = await userList(self, user_name)
         user_data = await userInformationList(self, user_name)
 
 
-    
         #send userdata to NewActiveGroupUser consumer
         await self.channel_layer.group_send(
              username_group,
@@ -73,8 +70,6 @@ class GroupChatConsumer(AsyncWebsocketConsumer):
         
         display_message = str(username) +" &nbsp:&nbsp " + message
       
-
-
         await self.channel_layer.group_send(
             self.room_group_name, {
                 'type': 'chat_message',
@@ -371,7 +366,6 @@ def userInformationList(self, name):
             username=x).values('userImage')
 
         user_image = data[0]
-        print("user image .....>  ",user_image)
 
         user_data = {
             'connect': {

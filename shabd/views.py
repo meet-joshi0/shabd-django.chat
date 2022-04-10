@@ -24,7 +24,6 @@ class usersList(ListView):
    
     paginate_by = 12
 
-
     def get_queryset(self, *args, **kwargs):
         param = self.request.GET.get('search')
         
@@ -52,13 +51,10 @@ class groupList(CreateView):
         else:
             return redirect('login')
 
-   
-
     def get_context_data(self,**kwargs):
         context = super(groupList,self).get_context_data(**kwargs)
         param =   self.request.GET.get('search')
         page_number =  self.request.GET.get('num')
-
         context['object_list'] = ""
         
         if  param  :
@@ -84,16 +80,13 @@ class friendList(LoginRequiredMixin,ListView):
     def get_queryset(self, *args, **kwargs):
         qs = FriendsList.objects.filter(usernm=self.request.user.username).select_related('friends')
         names = []
-        for a in qs:
 
+        for a in qs:
             friend_names = {}
             friend_names['username'] =  a.friends.username
             friend_names['userImage'] = str( a.friends.userImage )
             names.append(friend_names)
-
         return  names
-
- 
 
 class register(generic.CreateView):
     form_class = RegistrationForm
@@ -106,8 +99,6 @@ class register(generic.CreateView):
         login(self.request, user)
         return HttpResponseRedirect(reverse('index'))
  
-
-
 class updateResgister(generic.UpdateView):
     template_name= "update_registration.html"
     success_url = reverse_lazy("index")
@@ -138,8 +129,6 @@ class LoginView(FormView):
        return super(LoginView, self).form_valid(form)
 
 
-
-
 class groupChat(LoginRequiredMixin, TemplateView):
     template_name = "group_chat.html"
     login_url = reverse_lazy("login")
@@ -150,10 +139,7 @@ class groupChat(LoginRequiredMixin, TemplateView):
             *args, **kwargs)
         
         room_name = self.kwargs['room_name']
-
-
         group_messages =  GroupMessage.objects.filter(groupName=room_name).values('sender','message','time')[:200]
-
         extra_context = {'room_name': room_name,'group_messages':group_messages}
         return extra_context
 
@@ -177,8 +163,6 @@ class ChatNotification(LoginRequiredMixin,TemplateView):
 class userchat(LoginRequiredMixin,TemplateView):
     template_name = "user_chat.html"
     login_url = reverse_lazy("login")
-
-    
 
     def get_context_data(self, *args, **kwargs):
         context = super(userchat, self).get_context_data(*args, **kwargs)
@@ -206,8 +190,6 @@ class userchat(LoginRequiredMixin,TemplateView):
             
         context = {"user_name": reciver, "message": message}
         return context
-
-
 
 
 

@@ -10,8 +10,6 @@ register = template.Library()
 @register.filter(name="getprofile", is_safe=True)
 def profile_data(value,x):
 
-   
-
     q = []
     x = x  if x else "null"
     value=value
@@ -26,9 +24,7 @@ def profile_data(value,x):
             a['url'] = f"/userroom/{ i['username'] }/{x}"
 
             a["img"] = i['userImage']
-
             a["username"] = i['username']
-
             q.append(a)
 
         elif i['username'] != x:
@@ -38,11 +34,8 @@ def profile_data(value,x):
 
             a['url'] = f"/userroom/{ i['username'] }/{x}"
             a["img"] =  i['userImage']
-
             a["username"] = i['username']
-
             q.append( a)
-
 
     return q
 

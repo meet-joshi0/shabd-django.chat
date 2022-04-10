@@ -64,7 +64,6 @@ class ChatGroup(models.Model):
     
     
 class FriendsList(models.Model):
-    #error here in foreign key removed unique equal true
     friends = models.ForeignKey(CustomeUserProfile,on_delete=CASCADE,related_name="friend")
 
     usernm = models.CharField(max_length=350)
