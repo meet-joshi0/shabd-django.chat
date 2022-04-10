@@ -9,10 +9,14 @@ simple chatting site built with django and channels.
 [4] add friend functionality <br />
 
 #### to-do <br/>
-[1] improve login and registration page <br/>
+[1] improve frontend design <br/>
 [2] improve accuracy of notification system <br/>
+[3] refector code for better optimization,readability and maintainability <br/>
+
+
+
 
 ### note:<b>
-add your own secret key and database configurations<b>
+add your own secret key and database configurations <b>
 
 
