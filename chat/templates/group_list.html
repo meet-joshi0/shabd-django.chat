@@ -91,13 +91,14 @@
       </div>
         {% endif %}
 
-      {% for item in group_list %}
+        {{ media }}
 
+      {% for item in group_list %}
       <div class=" col-md-4  ">
         <div class='card text-center   mb-4 ' style='width:auto'>
-        {% comment %} {% cloudinary item.groupImage width=315 height=250 %} {% endcomment %}
        
-       {% cloudinary item.groupImage class="card-img-top" width=200 height=250 %}
+       {% comment %} <img class="card-img-top" height="250" src="{{MEDIA_URL}}{{ item.image__groupImage }}" width="200"> {% endcomment %}
+       <img class="card-img-top" height="250" src="{{MEDIA_URL}}{{ item.get_group_image }}" width="200">
 
           <div class='card-body ' style='background-color: #468faf '>
 

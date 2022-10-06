@@ -1,3 +1,4 @@
+import imp
 from django.views.generic import View, TemplateView, FormView, ListView,CreateView,UpdateView
 from . forms import RegistrationForm, updateUserRegistratioForm,LoginForm,GroupForm
 from . models import CustomeUserProfile,AbstractUser, ChatMessage, ChatNotificationModel, ChatGroup, FriendsList, GroupMessage
@@ -12,6 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixi
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import redirect
+from dropbox.base import DropboxBase  
 # views 
 
 
@@ -28,15 +30,12 @@ class usersList(ListView):
         param = self.request.GET.get('search')
         
         qs = ""
-        
         if  param  :
             qs = CustomeUserProfile.objects.filter(username__icontains = param).values('username','userImage')
         else:
             qs = CustomeUserProfile.objects.values('username','userImage' )
         
         return qs
-
-
 
 class groupList(CreateView):
     form_class = GroupForm
@@ -55,27 +54,21 @@ class groupList(CreateView):
         context = super(groupList,self).get_context_data(**kwargs)
         param =   self.request.GET.get('search')
         page_number =  self.request.GET.get('num')
-        context['object_list'] = ""
-        
+        context['object_list'] = "" 
         if  param  :
             context['object_list'] = ChatGroup.objects.filter(groupname__icontains=param).values('groupname','groupImage','description')
         else:
-            context['object_list'] = ChatGroup.objects.values('groupname','groupImage','description')
+            context['object_list'] = ChatGroup.objects.all() #values('groupname','image__groupImage','description')
 
         context = paginate(context,context['object_list'],page_number)
 
         return context
-
-   
-        
-  
 
 class friendList(LoginRequiredMixin,ListView):
     model = FriendsList
     login_url = reverse_lazy("index")
     template_name = "friend_list.html"
     paginate_by = 12
-
 
     def get_queryset(self, *args, **kwargs):
         qs = FriendsList.objects.filter(usernm=self.request.user.username).select_related('friends')
@@ -106,12 +99,10 @@ class updateResgister(generic.UpdateView):
     form_class =  updateUserRegistratioForm
 
     def form_valid(self, form):
-        
         if form.cleaned_data['password']:
             form.instance.set_password(form.cleaned_data['password'])
         else:
             del form.instance.password
-
         return super().form_valid(form)
  
 
@@ -120,19 +111,15 @@ class LoginView(FormView):
     form_class = LoginForm
     success_url = reverse_lazy("index")
 
-
     def form_valid(self, form):
        user = authenticate(
            username=self.request.POST['username'], password=self.request.POST['password'])
        login(self.request, user)
-
        return super(LoginView, self).form_valid(form)
 
-
-class groupChat(LoginRequiredMixin, TemplateView):
+class groupChat(LoginRequiredMixin, TemplateView, DropboxBase):
     template_name = "group_chat.html"
     login_url = reverse_lazy("login")
-
 
     def get_context_data(self, *args, **kwargs):
         context = super(groupChat, self).get_context_data(
@@ -141,17 +128,16 @@ class groupChat(LoginRequiredMixin, TemplateView):
         room_name = self.kwargs['room_name']
         group_messages =  GroupMessage.objects.filter(groupName=room_name).values('sender','message','time')[:200]
         extra_context = {'room_name': room_name,'group_messages':group_messages}
+
         return extra_context
 
 class Active_group_users(LoginRequiredMixin,TemplateView):
     template_name = "active_group_users.html"
     login_url = reverse_lazy("index")
 
-
 class ChatNotification(LoginRequiredMixin,TemplateView):
     template_name = "notification.html"
     login_url = reverse_lazy("login")
-
 
     def get_context_data(self, *args, **kwargs):
         context = super(ChatNotification, self).get_context_data(
@@ -159,7 +145,6 @@ class ChatNotification(LoginRequiredMixin,TemplateView):
         data = ChatNotificationModel.objects.all()
         context = {"dt": data}
         return context
-
 class userchat(LoginRequiredMixin,TemplateView):
     template_name = "user_chat.html"
     login_url = reverse_lazy("login")
@@ -178,7 +163,6 @@ class userchat(LoginRequiredMixin,TemplateView):
         else:
             reciver = "null"
 
-
         message1 = ChatMessage.objects.filter(
             Q(sender=user) & Q(reciver=reciver))
         message2 = ChatMessage.objects.filter(
@@ -191,32 +175,22 @@ class userchat(LoginRequiredMixin,TemplateView):
         context = {"user_name": reciver, "message": message}
         return context
 
-
-
-
 @login_required
 def AddFriend(request):
         user =  request.user.username
-
         if request.method == 'POST':
-
-
             if request.POST.get('add_friend_name'):
-
                add_friend = request.POST['add_friend_name']
                friend = CustomeUserProfile.objects.get(username=add_friend)
                addName  = FriendsList.objects.create(usernm=user,friends=friend)
                return HttpResponse("True")
-
             else:
-                
                 if request.POST.get('remove_friend_name'):
                        remove_friend = request.POST['remove_friend_name']
                        friend = CustomeUserProfile.objects.get(username=remove_friend)
                        deleteFriend = FriendsList.objects.get(usernm=user,friends=friend).delete()
                        return HttpResponse(" deleted ")
         else:
-            
             if request.method == 'GET':
                add_friend = request.GET['friend_name']
                friend = CustomeUserProfile.objects.get(username=add_friend)

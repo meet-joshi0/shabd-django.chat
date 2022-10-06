@@ -51,6 +51,8 @@
     </div>
 
     <script>
+        //let webSocketProtocol = getWebSocketProtocol() 
+
         const roomName = JSON.parse(document.getElementById("user_name").textContent);
         const username = "{{ user.get_username }}"
         messageCounter = 0
@@ -58,12 +60,12 @@
         var url = short_name_path(username,roomName)
 
         const chatSocket = new WebSocket(
-            'wss://' + window.location.host + '/ws/userchat/' + url + '/'
+            webSocketProtocol + window.location.host + '/ws/userchat/' + url + '/'
         );
 
 
         const chatSocket2 = new WebSocket(
-            'wss://' + window.location.host + '/ws/notification/' + roomName + '/'
+            webSocketProtocol + window.location.host + '/ws/notification/' + roomName + '/'
 
         );
 

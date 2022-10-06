@@ -1,3 +1,4 @@
+
 function url_path_userroom(name1, name2) {
   path = "";
   url = "";
@@ -50,7 +51,6 @@ function current_date_time() {
   
   var d = new Date();
 
-
   var weekday = [
   "Sun","Mon","Tue", "Wed", "Thu", "Fri", "Sat"]
 
@@ -64,10 +64,25 @@ function current_date_time() {
   var day = weekday[d.getUTCDay()];
     
    var date_time = day+" "+month+" "+hour+":"+minute;
-
-
   return   date_time
-
-
-
 }
+
+
+function getProtocol(){
+  http_protocol =  window.location.protocol
+  return http_protocol
+}
+
+function getWebSocketProtocol(){
+  let website_protocol = getProtocol()
+  let websocket_protocol = "wss://" 
+  
+  if (website_protocol == "http:"){
+    websocket_protocol = "ws://"
+  }
+  return websocket_protocol;
+}
+
+
+  /* Global Variables */
+  let  webSocketProtocol = getWebSocketProtocol() 

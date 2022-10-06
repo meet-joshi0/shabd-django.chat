@@ -33,9 +33,10 @@
       var ping = "";
       var csrf = "{{ csrf_token }}"
       var recipient = "";
+      //let webSocketProtocol = getWebSocketProtocol() 
  
       const chatSocketNotify = new WebSocket(
-        "wss://" + window.location.host + "/ws/notification/" + name + "/"
+        webSocketProtocol + window.location.host + "/ws/notification/" + name + "/"
       );
 
 

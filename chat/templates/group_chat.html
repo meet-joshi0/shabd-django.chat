@@ -2,7 +2,7 @@
 {% load static %}
 {% block content_body %}
 
-
+{{ group_img }}
 
 <body class="mt-5 " style="overflow:auto; background-color:#e9f5db "  >
 
@@ -48,12 +48,19 @@
 
     <script>
 
+        /* Global Variables */
+       // let webSocketProtocol = getWebSocketProtocol() 
+
         var roomName = JSON.parse(document.getElementById("room_name").textContent);
         const chatSocket = new WebSocket(
-            'wss://' + window.location.host + '/ws/groupchat/' + roomName + '/'
+            webSocketProtocol + window.location.host + '/ws/groupchat/' + roomName + '/'
         );
 
+        console.log(" chatSocket --> ", chatSocket)
 
+        chatSocket.onerror=function(event){
+            console.log("Error", event);
+        }
         chatSocket.onopen = function(e){
         console.log("connect is opened for group chat ... ")
         $("#structure").animate({ scrollTop: $("#frame")[0].scrollHeight },1000);
@@ -93,6 +100,7 @@
         document.querySelector("#chat-message-submit").onclick = function (e) {
             const messageInputDom = document.querySelector("#chat-message-input");
             const message = messageInputDom.value;
+            console.log(" message -=-=> ", message)
 
                 if(message.trim()){
 

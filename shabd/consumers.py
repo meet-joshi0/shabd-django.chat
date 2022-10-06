@@ -17,9 +17,12 @@ from decouple import config
 # =================================================================== #
 
 # stricrredis
-r = redis.Redis(host=config('redis_host'),port=config('redis_port'),password=config('redis_password'),db='0',decode_responses=True)
+# r = redis.Redis(host=config('redis_host'),port=config('redis_port'),password=config('redis_password'),db='0',decode_responses=True)
 
-
+# r = redis.Redis(host="redis://127.0.0.1",port="6379",db='0',decode_responses=True)
+r = redis.Redis(db='0',decode_responses=True)
+r.ping()
+print(" r is --> ", r)
 class GroupChatConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
@@ -28,8 +31,10 @@ class GroupChatConsumer(AsyncWebsocketConsumer):
 
         user_name = str(self.scope['user'])
         username_group = "new_user_%s" % (user_name)
+        print(  "username -=-=-> ", username_group)
         add_online_user = await userList(self, user_name)
         user_data = await userInformationList(self, user_name)
+        print(" user_data is --> ", user_data)
 
 
         #send userdata to NewActiveGroupUser consumer

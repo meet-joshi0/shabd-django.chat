@@ -28,13 +28,16 @@
     var csrf = "{{ csrf_token }}"
     var recipient = "";
     var roomName = "{{ room_nm }}"
+  //  let webSocketProtocol = getWebSocketProtocol() 
+
+
 
     const Active_User_Socket = new WebSocket(
-      'wss://' + window.location.host + '/ws/activeusers/' + roomName + '/'
+      webSocketProtocol + window.location.host + '/ws/activeusers/' + roomName + '/'
     );
 
     const active_new_user = new WebSocket(
-      "wss://" + window.location.host + "/ws/activeusernew/" + name + "/"
+      webSocketProtocol + window.location.host + "/ws/activeusernew/" + name + "/"
     );
 
 

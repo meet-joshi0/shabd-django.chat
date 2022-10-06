@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import CustomeUserProfile,ChatMessage,GroupMessage, ChatNotificationModel,ChatGroup,FriendsList
+from . models import CustomeUserProfile,ChatMessage,GroupMessage, ChatNotificationModel,ChatGroup,FriendsList, GroupImages
 # Register your models here.
 
 admin.site.register(CustomeUserProfile)
@@ -8,3 +8,4 @@ admin.site.register(GroupMessage)
 admin.site.register(ChatNotificationModel)
 admin.site.register(ChatGroup)
 admin.site.register(FriendsList)
+admin.site.register(GroupImages)
